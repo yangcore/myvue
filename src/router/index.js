@@ -6,8 +6,8 @@ import ZDYstrategy from '@/components/ZDYstrategy/ZDYstrategy.vue'
 import bidinfo from '@/components/bidinfo/bidinfo.vue'
 Vue.use(Router)
 
-export default new Router({
-	 mode: 'history',
+const routercofing =new Router({
+//	 mode: 'history',
   routes: [
     {
       path: '/',
@@ -25,3 +25,12 @@ export default new Router({
     }
   ]
 })
+//routercofing.beforeEach((to, from, next) => {
+//// ...
+////console.info(to,from);
+//next();
+//})
+//routercofing.afterEach(route => {
+//console.info(route)
+//})
+export default routercofing;

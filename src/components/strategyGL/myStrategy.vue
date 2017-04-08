@@ -23,7 +23,8 @@
 		</el-row>
 		<el-row class='myStrategy-add'>
 			<el-col :span="24">
-				<a href="/ZDYstrategy">+新增自定义策略</a>
+				<!--<a href="/ZDYstrategy">+新增自定义策略</a>-->
+				<router-link :to="{name:'ZDYstrategy'}">+新增自定义策略</router-link>
 			</el-col>
 		</el-row>
 	</div>
@@ -42,7 +43,7 @@
 		},
 		methods: {
 			openORclose(e) {
-				console.info(this.myStrategyList)
+//				console.info(this.myStrategyList)
 			},
 			down(index) {
 				if(index == this.myStrategyList.length - 1) {

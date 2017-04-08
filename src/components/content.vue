@@ -1,7 +1,9 @@
 <template>
 	<div class="contentx">
 		<el-col :span="24">
+			
 			<router-view></router-view>
+			
 			<!--<userinfo></userinfo>-->
 		</el-col>
 	</div>
