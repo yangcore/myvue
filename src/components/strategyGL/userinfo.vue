@@ -90,7 +90,7 @@
 	}
 	
 	.userinfo {
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 		margin-top: 10px;
 		padding: 30px 0;

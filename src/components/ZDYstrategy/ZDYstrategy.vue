@@ -1,12 +1,12 @@
 <template>
-	<div class="records">
-		我是投标记录
+	<div class="ZDYstrategy">
+		我是策略页
 	</div>
 </template>
 
 <script>
 	export default {
-	  name: 'records'
+	  name: 'ZDYstrategy',
 	}
 </script>
 

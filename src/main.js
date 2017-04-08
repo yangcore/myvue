@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+//import 'element-ui/lib/theme-default/fonts/element-icons.ttf'
+//import 'element-ui/lib/theme-default/fonts/element-icons.woff'
 import router from './router'
 
 Vue.config.productionTip = false
@@ -15,3 +17,4 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+

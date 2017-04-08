@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import userinfo from '@/components/userinfo.vue'
-import strategy from '@/components/strategy.vue'
-import records from '@/components/records.vue'
+//import Hello from '@/components/Hello'
+import strategyGL from '@/components/strategyGL/strategyGL.vue'
+import ZDYstrategy from '@/components/ZDYstrategy/ZDYstrategy.vue'
+import bidinfo from '@/components/bidinfo/bidinfo.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -11,17 +11,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'userinfo',
-      component: userinfo
+      name: 'strategyGL',
+      component: strategyGL
     },
     {
-      path: '/strategy',
-      name: 'strategy',
-      component: strategy
+      path: '/ZDYstrategy',
+      name: 'ZDYstrategy',
+      component: ZDYstrategy
     },{
-      path: '/records',
-      name: 'records',
-      component: records
+      path: '/bidinfo',
+      name: 'bidinfo',
+      component: bidinfo
     }
   ]
 })

@@ -37,30 +37,31 @@ module.exports = {
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')]
       },
-//     {
-//      test: /\.css$/,
-//      loader: 'style-loader!css-loader'
+       {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader',
+         include: [resolve('src'), resolve('test')]
+      },
+//    {
+//      test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+//      loader: 'url-loader',
+//      options: {
+//        limit: 10000,
+//        name: utils.assetsPath('img/[name].[hash:7].[ext]')
+//      }
 //    },
-      {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-        }
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-        loader: 'file-loader'
-      }
+//    {
+//      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+//      loader: 'url-loader',
+//      options: {
+//        limit: 10000,
+//        name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+//      }
+//    },
+//    {
+//      test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+//      loader: 'file-loader'
+//    }
 //    ,
 //    {
 //      test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
@@ -69,6 +70,18 @@ module.exports = {
 //        name: '[name].[ext]?[hash]'
 //      }
 //    }
+				 {
+        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
+        loader: 'file-loader',
+        query: {
+          name: '[name].[ext]?[hash]'
+        }
+      }
+
     ]
   }
 }

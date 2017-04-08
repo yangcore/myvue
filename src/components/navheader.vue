@@ -33,6 +33,10 @@
 		line-height: 70px;
 		text-align: center;
 	}
+	.navheader .el-col{
+		height: 70px;
+		line-height: 70px;
+	}
 	.el-dropdown{
 		float: right;
 		margin-right: 5%;

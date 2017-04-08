@@ -1,12 +1,12 @@
 <template>
-	<div class="strategy">
-		我是策略页
+	<div class="bidinfo">
+		我是投标记录
 	</div>
 </template>
 
 <script>
 	export default {
-	  name: 'strategy',
+	  name: 'bidinfo'
 	}
 </script>
 
