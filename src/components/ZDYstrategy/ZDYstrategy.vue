@@ -255,7 +255,7 @@
         </el-col>
         <el-col :span='5' class="leftxx">
           <el-form-item label=""  label-width='0'  prop="LsJklbStart"   required>
-            <el-input v-model="ruleForm.LsJkcsStart"></el-input>
+            <el-input v-model="ruleForm.LsJklbStart"></el-input>
           </el-form-item>
         </el-col>
         <el-col class="line" :span="2">至</el-col>
@@ -329,20 +329,20 @@
 </el-row>
 <!--待还金额范围-->
 
-<el-row class="Dhmoney clearBoth">
+<el-row class="DhMoney clearBoth">
         <el-col :span='5'>
           <el-form-item label="待还金额范围:" label-width='170px' required>
           </el-form-item>
         </el-col>
         <el-col :span='5' class="leftxx">
-          <el-form-item label=""  label-width='0'  prop="DhmoneyStart"   required>
-            <el-input v-model="ruleForm.DhmoneyStart"></el-input>
+          <el-form-item label=""  label-width='0'  prop="DhMoneyStart"   required>
+            <el-input v-model="ruleForm.DhMoneyStart"></el-input>
           </el-form-item>
         </el-col>
         <el-col class="line" :span="2">至</el-col>
         <el-col :span='5'>
-          <el-form-item label="" label-width='0'  prop="DhmoneyEnd"  required>
-            <el-input v-model="ruleForm.DhmoneyEnd"></el-input>
+          <el-form-item label="" label-width='0'  prop="DhMoneyEnd"  required>
+            <el-input v-model="ruleForm.DhMoneyEnd"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='2' class="danwei">次</el-col>
@@ -480,13 +480,13 @@ export default {
     // 检测利率范围
     var checkLnvFwStart = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入借款期限开始时间'));
+        return callback(new Error('请输入利率范围起始值'));
       }
       setTimeout(() => {
-        if (!/^(0(?!\.0{1,2}$)(\.[0-9]{1,2})?|[1-9][0-9]{0,2}(\.[0-9]{1,2})?)$/.test(Number(value))) {
-          callback(new Error('请输入大于对于0且保留两位数字小于999.99的值'));
+        if (!/(^[0-9]+(.[0-9]{1})+([1-9]{1})$)|(^[0-9]+(.[1-9]{1})$)|(^[0-9]*$)/.test(value)) {
+          callback(new Error('请输入大于对于0且最多保留两位数字'));
         } else if (this.ruleForm.LnvFwEnd != '' && Number(value) > Number(this.ruleForm.LnvFwEnd)) {
-          callback(new Error('请输入小于结束利率的值'));
+          callback(new Error('请输入小于结束利率结束值'));
         } else {
           callback();
         }
@@ -494,16 +494,18 @@ export default {
     };
     var checkLnvFwEnd = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入利率范围起始值'));
+        return callback(new Error('请输入利率范围结束值'));
       }
       setTimeout(() => {
-        if (!/^(0(?!\.0{1,2}$)(\.[0-9]{1,2})?|[1-9][0-9]{0,2}(\.[0-9]{1,2})?)$/.test(Number(value))) {
-          callback(new Error('请输入大于对于0且保留两位数字小于999.99的值'));
-        } else if (Number(value) < Number(this.ruleForm.LnvFwStart)) {
-          callback(new Error('请输入大于起始利率的值'));
+       
+        if(!/(^[0-9]+(.[0-9]{1})+([1-9]{1})$)|(^[0-9]+(.[1-9]{1})$)|(^[0-9]*$)/.test(value)){
+                callback(new Error('请输入大于对于0且最多保留两位数字'))
+        }else if (Number(value) < Number(this.ruleForm.LnvFwStart)) {
+          callback(new Error('请输入大于起始利率起始值'));
         } else {
           callback();
         }
+
       }, 500);
     };
 
@@ -513,7 +515,7 @@ export default {
         return callback(new Error('请输入借款人年龄起始值'));
       }
       setTimeout(() => {
-        if (!/^(?:[1-9][0-9]?|1[01][0-9]|120)$/.test(Number(value))) {
+        if (!/^(?:[1-9][0-9]?|1[01][0-9]|120)$/.test(value)) {
           callback(new Error('请输入1-120的值'));
         } else if (this.ruleForm.JkRenAgeEnd != '' && Number(value) > Number(this.ruleForm.JkRenAgeEnd)) {
           callback(new Error('请输入小于借款人年龄的结束值'));
@@ -527,7 +529,7 @@ export default {
         return callback(new Error('请输入借款人年龄结束值'));
       }
       setTimeout(() => {
-        if (!/^(?:[1-9][0-9]?|1[01][0-9]|120)$/.test(Number(value))) {
+        if (!/^(?:[1-9][0-9]?|1[01][0-9]|120)$/.test(value)) {
           callback(new Error('请输入1-120的值'));
         } else if (Number(value) < Number(this.ruleForm.JkRenAgeStart )) {
           callback(new Error('请输入大于借款人年龄的起始值'));
@@ -629,7 +631,7 @@ var checkZchqcsStart = (rule, value, callback) => {
         } else {
           if (Number(value) < 0) {
             callback(new Error('请输入大于0的值'));
-          } else if (this.ruleForm.ZchqcsEnd != '' && Number(value) > Number(this.ruleForm.ZchqcsbEnd)) {
+          } else if (this.ruleForm.ZchqcsEnd != '' && Number(value) > Number(this.ruleForm.ZchqcsEnd)) {
             callback(new Error('请输入小于正常还清次数的结束值'));
           } else {
             callback();
@@ -742,6 +744,36 @@ var checkYqcs15Start = (rule, value, callback) => {
 
 
       //待还金额范围
+var checkDhMoneyStart = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('请输入待还金额范围起始值'));
+      }
+      setTimeout(() => {
+        if (!/(^[0-9]+(.[0-9]{1})+([1-9]{1})$)|(^[0-9]+(.[1-9]{1})$)|(^[0-9]*$)/.test(value)) {
+          callback(new Error('请输入大于对于0且最多保留两位数字'));
+        } else if (this.ruleForm.DhMoneyEnd != '' && Number(value) > Number(this.ruleForm.DhMoneyEnd)) {
+          callback(new Error('请输入小于待还金额范围结束值'));
+        } else {
+          callback();
+        }
+      }, 500);
+    };
+    var checkDhMoneyEnd = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('请输入待还金额范围结束值'));
+      }
+      setTimeout(() => {
+       
+        if(!/(^[0-9]+(.[0-9]{1})+([1-9]{1})$)|(^[0-9]+(.[1-9]{1})$)|(^[0-9]*$)/.test(value)){
+                callback(new Error('请输入大于对于0且最多保留两位数字'))
+        }else if (Number(value) < Number(this.ruleForm.DhMoneyStart)) {
+          callback(new Error('请输入大于待还金额范围起始值'));
+        } else {
+          callback();
+        }
+
+      }, 500);
+    };
 
 
 
@@ -771,10 +803,14 @@ var checkYqcs15Start = (rule, value, callback) => {
         LsJkcsEnd:'',//历史成功借款次数结束
         LsJklbStart:'',//历史流标借款次数开始
         LsJklbEnd:'',//历史流标借款次数结束
-        ZchqcsStart:'',
-        ZchqcsEnd:'',
-        Yqcs015Start:'',
-        Yqcs015End:'',
+        ZchqcsStart:'',//正常还清次数范围开始
+        ZchqcsEnd:'',//正常还清次数范围结束
+        Yqcs015Start:'',//0-15逾期开始
+        Yqcs015End:'',//0-15逾期结束
+        Yqcs15Start:'',//15以上逾期开始
+        Yqcs15End:'',//15以上逾期结束
+        DhMoneyStart:'',//待还金额开始
+        DhMoneyEnd:''//待还金额结束
       },
       rules: {
         strategyName: [
@@ -836,6 +872,12 @@ var checkYqcs15Start = (rule, value, callback) => {
         ],
         Yqcs15End:[
            { required: true, type: 'number', validator: checkYqcs15End, trigger: 'blur' }
+        ],
+        DhMoneyStart:[
+           { required: true, type: 'number', validator: checkDhMoneyStart, trigger: 'blur' }
+        ],
+        DhMoneyEnd:[
+           { required: true, type: 'number', validator: checkDhMoneyEnd, trigger: 'blur' }
         ]
 
       }
