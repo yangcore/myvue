@@ -19,7 +19,8 @@
 		background: white;
 		width: 1000px;
 		float: left;
-		height: 1000px;
+		/*height: 1000px;*/
+		padding-bottom: 100px
 	}
 	.el-col {
 		margin: 0 auto;

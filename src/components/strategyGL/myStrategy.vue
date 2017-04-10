@@ -2,7 +2,7 @@
 	<div class="myStrategy">
 
 		<el-row class='myStrategy-title1'>
-			<el-col :span="3">我的策略</el-col>
+			<el-col :span="3"><h2>我的策略</h2></el-col>
 		</el-row>
 
 		<el-row class='myStrategy-title2'>
@@ -21,6 +21,7 @@
 				</el-switch>
 			</el-col>
 		</el-row>
+
 		<el-row class='myStrategy-add'>
 			<el-col :span="24">
 				<!--<a href="/ZDYstrategy">+新增自定义策略</a>-->
@@ -71,9 +72,12 @@
 	}
 </script>
 <style>
+	.myStrategy-title1{
+		padding-bottom: 50px !important;
+	}
 	.myStrategy-title1 .el-col {
-		height: 40px;
-		line-height: 40px;
+		height: 50px;
+		line-height: 50px;
 		text-align: center;
 	}
 	
@@ -83,6 +87,10 @@
 		border: 1px solid #AAAAAA;
 	}
 	
+	.myStrategy-title2{
+		background: #eef1f6;
+		font-weight: 500
+	}
 	.myStrategy-title2 .el-col {
 		height: 40px;
 		line-height: 40px;
