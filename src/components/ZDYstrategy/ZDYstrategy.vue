@@ -931,7 +931,7 @@ var checkDhMoneyStart = (rule, value, callback) => {
   text-align: center;
 }
 .jkReninfoTitle{
-  height: 65px;
+  height: 50px;
   margin-bottom: 40px;
    border-bottom: 1px solid black;
 }
@@ -954,5 +954,8 @@ var checkDhMoneyStart = (rule, value, callback) => {
 
 .danwei {
   text-align: center;
+}
+.ZDYstrategy .el-row{
+  margin-bottom: 20px 
 }
 </style>
