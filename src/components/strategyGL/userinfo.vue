@@ -32,7 +32,7 @@
 	</div>
 </template>
 <script>
-import Hub from '../../eventHub.js';
+// import Hub from '../../eventHub.js';
 	export default {
 		name: 'userinfo',
 		data() {
@@ -49,10 +49,11 @@ import Hub from '../../eventHub.js';
 			}
 		},
 		mounted() {
-			var _this=this;
-			Hub.$on('userName', (e) => { //Hub接收事件
-					_this.userName=e;
-			});
+			// var _this=this;
+			// Hub.$on('userName', (e) => { //Hub接收事件
+			// 		_this.userName=e;
+			// });
+				this.userName = this.GetQueryString('userName');
 		},
 		methods: {
 			checkMoneyFormat(val) {
@@ -83,7 +84,11 @@ import Hub from '../../eventHub.js';
 					this.efficacy=true;
 				}
 			},
-
+			GetQueryString(name){
+				var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r!=null)return  unescape(r[2]); return null;
+			}
 		}
 
 	}
