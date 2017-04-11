@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--<router-view></router-view>-->
-    <navheader></navheader>
+    <navheader :userName='userName'></navheader>
    <div class="appmain">
     	<menux></menux>
     	<contentx></contentx>
@@ -14,11 +14,37 @@
 	import navheader from './components/navheader.vue';
 	import contentx from './components/content.vue';
 	import indexRouter from './router/index.js' ;
+	import Hub from './eventHub.js';
 	export default {
 	  name: 'app',
 	  indexRouter,
 	  template: ['<menux/>','<navheader/>','<contentx/>'],
 	  components: { menux,navheader,contentx },
+		data(){
+			return{
+				userName:''
+			}
+		},
+		created (){
+			Hub.$emit('userName',this.GetQueryString('userName'));
+		},
+		mounted () {
+			this.userName = this.GetQueryString('userName');
+			Hub.$emit('userName',this.GetQueryString('userName'));
+			indexRouter.afterEach(route => {
+					// console.info(route);
+					if(route.name=='strategyGL'){
+							Hub.$emit('userName',this.GetQueryString('userName'));
+					}
+			})
+		},
+	  methods: {
+		GetQueryString(name){
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+			}
+		}
 	}
 </script>
 

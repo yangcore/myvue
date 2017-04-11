@@ -10,7 +10,7 @@
 </template>
 <script>
 	export default {
-	  name: 'contentx'
+	  name: 'contentx',
 	}
 </script>
 
@@ -19,7 +19,7 @@
 		background: white;
 		width: 1000px;
 		float: left;
-		/*height: 1000px;*/
+		height: auto;
 		padding-bottom: 100px
 	}
 	.el-col {

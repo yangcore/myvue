@@ -32,11 +32,12 @@
 	</div>
 </template>
 <script>
+import Hub from '../../eventHub.js';
 	export default {
 		name: 'userinfo',
 		data() {
 			return {
-				userName: 'pdu7374398',
+				userName: '',
 				value1: true,
 				value2: true,
 				surplusMoney: 388,
@@ -46,6 +47,12 @@
 				showinpunt: 'hide',
 				efficacy:false
 			}
+		},
+		mounted() {
+			var _this=this;
+			Hub.$on('userName', (e) => { //Hub接收事件
+					_this.userName=e;
+			});
 		},
 		methods: {
 			checkMoneyFormat(val) {

@@ -84,12 +84,14 @@
 	.myStrategy-title2,
 	.myStrategy-list,
 	.myStrategy-add {
-		border: 1px solid #AAAAAA;
+		border: 1px solid #dfe6ec;
+		border-top: none
 	}
 	
 	.myStrategy-title2{
 		background: #eef1f6;
-		font-weight: 500
+		font-weight: 500;
+		border-top: 1px solid #dfe6ec
 	}
 	.myStrategy-title2 .el-col {
 		height: 40px;
@@ -98,14 +100,15 @@
 	}
 	
 	.myStrategy-list {
-		height: 50px;
-		line-height: 50px;
+		height: 40px;
+		line-height: 40px;
 		text-align: center;
+		font-size: 14px;
 	}
 	
 	.myStrategy-list .el-col {
-		height: 50px;
-		line-height: 50px;
+		height: 40px;
+		line-height: 40px;
 		text-align: center;
 	}
 	

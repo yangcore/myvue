@@ -1,5 +1,5 @@
 <template>
-  <div class="ZDYstrategy">
+  <div class="ZDYstrategy" >
     <el-form :model="ruleForm"
              :rules="rules"
              ref="ruleForm"
@@ -191,27 +191,27 @@
     <el-checkbox label="博士"></el-checkbox>
     <el-checkbox label="硕士"></el-checkbox>
     <el-checkbox label="本科"></el-checkbox>
-    <el-checkbox label="专升本" ></el-checkbox>
     <el-checkbox label="专科" ></el-checkbox>
-    <el-checkbox label="专科（高职）" ></el-checkbox>
+    <el-checkbox label="无" ></el-checkbox>
   </el-checkbox-group>
  </el-row>
 <!--学习形式-->
  <el-row class="clearBoth">
     <el-col :span='5'>
-          <el-form-item label="学历:" >
+          <el-form-item label="学习形式:" >
           </el-form-item>
         </el-col>
  <el-checkbox-group v-model="ruleForm.xxxsCheckList">
+    <el-checkbox label="普通"></el-checkbox>
+    <el-checkbox label="研究生"></el-checkbox>
     <el-checkbox label="成人"></el-checkbox>
-    <el-checkbox label="函授"></el-checkbox>
-    <el-checkbox label="开放教育"></el-checkbox>
-    <el-checkbox label="普通" ></el-checkbox>
-    <el-checkbox label="普通全日制" ></el-checkbox>
-    <el-checkbox label="全日制" ></el-checkbox>
+    <el-checkbox label="自考" ></el-checkbox>
+    <el-checkbox label="网络教育" ></el-checkbox>
+    <el-checkbox label="开放教育" ></el-checkbox>
+    <el-checkbox label="无" ></el-checkbox>
   </el-checkbox-group>
  </el-row>
-
+<!--征信认证-->
   <el-row class="clearBoth">
         <el-col :span='5'>
           <el-form-item label="征信认证:" >
@@ -222,6 +222,18 @@
           <el-checkbox label="未认证"></el-checkbox>
           </el-checkbox-group>
   </el-row>
+<!--征信认证-->
+  <el-row class="clearBoth">
+        <el-col :span='5'>
+          <el-form-item label="手机认证:" >
+          </el-form-item>
+        </el-col>
+          <el-checkbox-group v-model="ruleForm.phoneRadio">
+           <el-checkbox label="已认证"></el-checkbox>
+          <el-checkbox label="未认证"></el-checkbox>
+          </el-checkbox-group>
+  </el-row>
+
 <!--借款历史统计——————————————————————————————————————————————————————-->
 <el-row class="jkReninfoTitle">
         <el-col :span="24">
@@ -352,7 +364,9 @@
       <el-row class="clearBoth">
         <el-form-item>
           <el-button type="primary"
-                     @click="submitForm('ruleForm')">保存</el-button>
+                     @click="submitForm('ruleForm')"
+                      v-loading.fullscreen.lock="confing.fullscreenLoading"
+                      element-loading-text="数据保存中">保存</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-row>
@@ -360,6 +374,7 @@
   </div>
 </template>
 <script>
+	import indexRouter from '../../router/index.js' ; 
 export default {
   name: 'ZDYstrategy',
   data() {
@@ -400,7 +415,7 @@ export default {
     //借款期限检测
     var checkJkqxStart = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入借款起始期限'));
+        return callback(new Error('请输入借款期限起始值'));
       }
       setTimeout(() => {
         if (!Number.isInteger(Number(value))) {
@@ -409,7 +424,7 @@ export default {
           if (Number(value) < 0) {
             callback(new Error('请输入大于0的值'));
           } else if (this.ruleForm.JkqxEnd != '' && Number(value) > Number(this.ruleForm.JkqxEnd)) {
-            callback(new Error('请输入小于结束期限的值'));
+            callback(new Error('请输入小于借款期限结束值'));
           } else {
             console.info(value, this.ruleForm.JkqxEnd)
             callback();
@@ -420,7 +435,7 @@ export default {
 
     var checkJkqxEnd = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入借款结束期限'));
+        return callback(new Error('请输入借款期限结束值'));
       }
       setTimeout(() => {
         if (!Number.isInteger(Number(value))) {
@@ -429,7 +444,7 @@ export default {
           if (Number(value) < 0) {
             callback(new Error('请输入大于0的值'));
           } else if (Number(value) < Number(this.ruleForm.JkqxStart)) {
-            callback(new Error('请输入大于起始期限的值'));
+            callback(new Error('请输入大于借款期限起始值'));
           } else {
             callback();
           }
@@ -441,7 +456,7 @@ export default {
     // 检测金额范围
     var checkJkmoneyStart = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入借款起始额'));
+        return callback(new Error('请输入借款金额起始值'));
       }
       setTimeout(() => {
         if (!Number.isInteger(Number(value))) {
@@ -451,7 +466,7 @@ export default {
             callback(new Error('请输入大于0的值'));
           } else if (this.ruleForm.JkmoneyEnd != '' && Number(value) > Number(this.ruleForm.JkmoneyEnd)) {
             console.info(value, this.ruleForm.JkmoneyEnd)
-            callback(new Error('请输入小于结束额的值'));
+            callback(new Error('请输入小于借款金额结束值'));
           } else {
             callback();
           }
@@ -461,7 +476,7 @@ export default {
 
     var checkJkmoneyEnd = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入借款结束额'));
+        return callback(new Error('请输入借款金额结束值'));
       }
       setTimeout(() => {
         if (!Number.isInteger(Number(value))) {
@@ -470,7 +485,7 @@ export default {
           if (Number(value) < 0) {
             callback(new Error('请输入大于0的值'));
           } else if (Number(value) < Number(this.ruleForm.JkmoneyStart)) {
-            callback(new Error('请输入大于起始额的值'));
+            callback(new Error('请输入大于借款金额起始值'));
           } else {
             callback();
           }
@@ -779,7 +794,7 @@ var checkDhMoneyStart = (rule, value, callback) => {
 
     return {
       confing: {
-
+          fullscreenLoading:''
       },
       ruleForm: {
         // delivery: false,
@@ -799,6 +814,7 @@ var checkDhMoneyStart = (rule, value, callback) => {
         xlcheckList:[],//学历
         xxxsCheckList:[],//学习形式
         zxRadio:[],//征信
+        phoneRadio:[],//手机认证
         LsJkcsStart:'',//历史成功借款次数开始
         LsJkcsEnd:'',//历史成功借款次数结束
         LsJklbStart:'',//历史流标借款次数开始
@@ -810,7 +826,7 @@ var checkDhMoneyStart = (rule, value, callback) => {
         Yqcs15Start:'',//15以上逾期开始
         Yqcs15End:'',//15以上逾期结束
         DhMoneyStart:'',//待还金额开始
-        DhMoneyEnd:''//待还金额结束
+        DhMoneyEnd:'',//待还金额结束
       },
       rules: {
         strategyName: [
@@ -879,15 +895,24 @@ var checkDhMoneyStart = (rule, value, callback) => {
         DhMoneyEnd:[
            { required: true, type: 'number', validator: checkDhMoneyEnd, trigger: 'blur' }
         ]
-
       }
     };
+  },
+  mounted () {
+
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!');
+        if (!valid) {
+          // alert('submit!');
+          this.confing.fullscreenLoading = true;
+          setTimeout(() => {
+            this.confing.fullscreenLoading = false;
+          }, 3000);
+          setTimeout(()=>{
+              indexRouter.push({path:'/'});
+          },3001)
         } else {
           console.log('error submit!!');
           return false;
@@ -895,9 +920,12 @@ var checkDhMoneyStart = (rule, value, callback) => {
       });
     },
     resetForm(formName) {
-      this.ruleForm.checkedList = [];
+     for(var key in this.ruleForm){
+      if(this.ruleForm[key] instanceof Array){
+        this.ruleForm[key]=[];
+      }
+     }
       this.$refs[formName].resetFields();
-
     },
     getCheckedList(e) {
       console.info(this.ruleForm.checkedList)

@@ -20,6 +20,7 @@
 			}
 		},
 		mounted(){
+			this.menuListActive('/',0);
 			this.menuListActive('ZDYstrategy',1);
 		},
 		methods: {
@@ -72,7 +73,14 @@
 			}
 			indexRouter.afterEach(route => {
 				var elMenuItem=document.getElementsByClassName('el-menu-item');
-				if(route.path.indexOf(path)>0){
+				console.info(route.path)
+				if(route.path=='/'){
+					for(var i=0;i<elMenuItem.length;i++){
+						elMenuItem[i].classList.remove('is-active');
+					}
+						elMenuItem[0].classList.add('is-active');	
+						return;
+				}else if(route.path!='/' && route.path.indexOf(path)>0){
 					for(var i=0;i<elMenuItem.length;i++){
 						elMenuItem[i].classList.remove('is-active');
 					}

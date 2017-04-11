@@ -1,17 +1,17 @@
 <template>
 	<div class="navheader">
+	
 		<el-row>
 		  <el-col :span="5"><div class="grid-content bg-purple-dark">logo</div></el-col>
 		  <el-col :span="19">
 		  	<div class="grid-content bg-purple-dark">
 			  	<el-dropdown class="point" trigger='click'>
 			      <span class="el-dropdown-link">
-			      		  下拉菜单
+			      		  {{userName}}
 			        <i class="el-icon-caret-bottom el-icon--right"></i>
 			      </span>
 			      <el-dropdown-menu slot="dropdown">
-			        <el-dropdown-item>黄金糕</el-dropdown-item>
-			        <el-dropdown-item>狮子头</el-dropdown-item>
+			        <el-dropdown-item>退出</el-dropdown-item>
 			      </el-dropdown-menu>
 			    </el-dropdown>
 		  </div>
@@ -21,7 +21,8 @@
 </template>
 <script>
 	export default {
-	  name: 'navheader'
+	  name: 'navheader',
+		props: ['userName']
 }
 </script>
 
