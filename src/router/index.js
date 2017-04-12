@@ -6,24 +6,23 @@ import ZDYstrategy from '@/components/ZDYstrategy/ZDYstrategy.vue'
 import bidinfo from '@/components/bidinfo/bidinfo.vue'
 Vue.use(Router)
 
-const routercofing =new Router({
-//	 mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'strategyGL',
-      component: strategyGL
-    },
-    {
-      path: '/ZDYstrategy',
-      name: 'ZDYstrategy',
-      component: ZDYstrategy
-    },{
-      path: '/bidinfo',
-      name: 'bidinfo',
-      component: bidinfo
-    }
-  ]
+const routercofing = new Router({
+    //	 mode: 'history',
+    routes: [{
+            path: '/',
+            name: 'strategyGL',
+            component: strategyGL
+        },
+        {
+            path: '/ZDYstrategy',
+            name: 'ZDYstrategy',
+            component: ZDYstrategy
+        }, {
+            path: '/bidinfo',
+            name: 'bidinfo',
+            component: bidinfo
+        }
+    ]
 })
 //routercofing.beforeEach((to, from, next) => {
 //// ...
