@@ -1038,7 +1038,7 @@
             };
         },
         mounted() {
-
+                 console.log('dataId: ' + this.$route.params.dataId);
         },
         methods: {
             submitForm(formName) {

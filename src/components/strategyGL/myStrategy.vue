@@ -17,7 +17,8 @@
 		        :key="iteam.id">
 			<el-col :span="8">{{iteam.name}}</el-col>
 			<el-col :span="8">{{iteam.money}}</el-col>
-			<el-col :span="8">编辑策略 &nbsp;&nbsp;
+			<el-col :span="8">
+				<router-link :to="{name:'ZDYstrategy',params: { dataId:iteam.id }}" class="routerLink">编辑策略</router-link> &nbsp;&nbsp;
 				<i class="el-icon-arrow-up"
 				   @click="up(index)"></i> &nbsp;&nbsp;&nbsp;&nbsp;
 				<i class="el-icon-arrow-down"
@@ -32,7 +33,7 @@
 	
 		<el-row class='myStrategy-add'>
 			<el-col :span="24">
-				<router-link :to="{name:'ZDYstrategy'}">+新增自定义策略</router-link>
+				<router-link :to="{name:'ZDYstrategy'}" class="routerLink">+新增自定义策略</router-link>
 			</el-col>
 		</el-row>
 	</div>
@@ -43,9 +44,9 @@ export default {
 	data() {
 		return {
 			myStrategyList: [
-				{ name: '稳健快投', money: 50, value2: true },
-				{ name: '智商捉急', money: 1000, value2: true },
-				{ name: '你看着办', money: 300, value2: false }
+				{id:1, name: '稳健快投', money: 50, value2: true },
+				{id:2, name: '智商捉急', money: 1000, value2: true },
+				{id:3, name: '你看着办', money: 300, value2: false }
 			]
 		}
 	},
@@ -132,4 +133,8 @@ export default {
 	text-align: center;
 	cursor: pointer;
 }
+/*.routerLink{
+	color: #FF6600;
+	text-decoration: none;
+}*/
 </style>
