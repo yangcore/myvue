@@ -53,7 +53,8 @@
 			// Hub.$on('userName', (e) => { //Hub接收事件
 			// 		_this.userName=e;
 			// });
-				this.userName = this.GetQueryString('userName');
+				this.userName = this.GetQueryString('userName');//获取userName
+				this.GetInpunt();//初始化账户保留金额
 		},
 		methods: {
 			checkMoneyFormat(val) {
@@ -78,6 +79,9 @@
 						this.showinpunt = 'hide';
 						if(this.input==''){
 							this.input='0.00';
+							return;
+						}else{
+							this.AlterInpunt();//保存信息
 						}
 					}
 				}else{
@@ -88,6 +92,39 @@
 				var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 				var r = window.location.search.substr(1).match(reg);
 				if(r!=null)return  unescape(r[2]); return null;
+			},
+			// 账户保留金额获取
+			GetInpunt(){
+				this.$http.post('//bid.paicaifu.com/bid/userAmount/queryAmount')
+				.then((response) => {
+					if(response.body.responseCode=='0000'){
+							this.input=response.body.result.data.amount;
+					}else if(response.body.responseCode=='1001'){
+							 this.$alert('接口错误', '错误信息', {
+								showConfirmButton:false,
+								});
+					}
+				},(response) => {
+					 this.$alert('网络连接错误', '错误信息', {
+								showConfirmButton:false,
+								});
+				})
+			},
+			AlterInpunt(){
+				this.$http.post('//bid.paicaifu.com/bid/userAmount/queryAmount',{amount:this.input})
+				.then((response) => {
+					if(response.body.responseCode=='0000'){
+							this.input=response.body.result.data.amount;
+					}else if(response.body.responseCode=='1001'){
+							 this.$alert('接口错误', '错误信息', {
+								showConfirmButton:false,
+								});
+					}
+				},(response) => {
+					 this.$alert('网络连接错误', '错误信息', {
+								showConfirmButton:false,
+								});
+				})
 			}
 		}
 
