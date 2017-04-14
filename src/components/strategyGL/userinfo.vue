@@ -59,7 +59,11 @@ export default {
         }
     },
     mounted() {
-        this.userName = this.GetQueryString('name'); //获取userName
+        // this.userName = this.GetQueryString('name'); //获取userName
+         console.info(this.$store.commit('getName')) 
+        //  this.userName= this.$store.commit('getName').userName;
+        console.info(this.$store.state.userName,'载入')
+        this.userName=this.$store.state.userName;
         this.GetInpunt(); //初始化账户保留金额
     },
     methods: {

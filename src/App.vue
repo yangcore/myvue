@@ -24,7 +24,10 @@ export default {
 		}
 	},
 	mounted() {
+		
 		this.userName = this.GetQueryString('name');
+		this.$store.state.userName=this.GetQueryString('name');
+		
 	},
 	methods: {
 		GetQueryString(name) {
