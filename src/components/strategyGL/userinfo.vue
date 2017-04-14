@@ -56,7 +56,6 @@ export default {
             inputhtml: '修改',
             showinpunt: 'hide',
             efficacy: false,
-            inputFlag:''
         }
     },
     mounted() {
@@ -81,11 +80,11 @@ export default {
                     this.inputhtml = '保存';
                     this.showinpunt = 'show'
                 } else {
-                    if (this.input == '' ) {
-                         this.input='0.00'
-                         this.AlterInpunt(); //保存信息
-                    } 
-                    else{
+                    if (this.input == '') {
+                        this.input = '0.00'
+                        this.AlterInpunt(); //保存信息
+                    }
+                    else {
                         this.AlterInpunt(); //保存信息
                     }
                 }
@@ -103,13 +102,20 @@ export default {
         GetInpunt() {
             this.$http.post('//bid.paicaifu.com/userAmount/queryAmount')
                 .then((response) => {
-                    if (response.body.responseCode == '0000') {
-                        this.input = response.body.result.data.amount;
-                    } else if (response.body.responseCode == '1001') {
-                        this.$alert('接口错误，请重试！！', '错误信息', {
+                    if (response.body) {
+                        if (response.body.responseCode == '0000') {
+                            this.input = response.body.result.data.amount;
+                        } else if (response.body.responseCode == '1001') {
+                            this.$alert('接口错误，请重试！！', '错误信息', {
+                                showConfirmButton: false,
+                            });
+                        }
+                    } else {
+                        this.$alert('网络连接错误,请重试！！', '错误信息', {
                             showConfirmButton: false,
                         });
                     }
+
                 }, (response) => {
                     this.$alert('网络连接错误,请重试！！', '错误信息', {
                         showConfirmButton: false,
@@ -121,24 +127,27 @@ export default {
                 amount: this.input
             })
                 .then((response) => {
-                    if (response.body.responseCode == '0000' && response.body.result.data.flag=='true') {
-                            // this.inputFlag=true;
+                    if (response.body) {
+                        if (response.body.responseCode == '0000' && response.body.result.data.flag == 'true') {
                             this.inputtype = '';
                             this.inputhtml = '修改';
                             this.showinpunt = 'hide';
-                        this.$notify({
-                            title: '修改状态',
-                            message: '恭喜您修改成功！！',
-                            type: 'success'
-                        });
-                    } else if (response.body.responseCode == '1001') {
-                        this.inputFlag=false;
-                        this.$alert('接口错误，请重试！！', '错误信息', {
+                            this.$notify({
+                                title: '修改状态',
+                                message: '恭喜您修改成功！！',
+                                type: 'success'
+                            });
+                        } else if (response.body.responseCode == '1001') {
+                            this.$alert('接口错误，请重试！！', '错误信息', {
+                                showConfirmButton: false,
+                            });
+                        }
+                    } else {
+                        this.$alert('网络连接错误，请重试！！', '错误信息', {
                             showConfirmButton: false,
                         });
                     }
                 }, (response) => {
-                     this.inputFlag=false;
                     this.$alert('网络连接错误，请重试！！', '错误信息', {
                         showConfirmButton: false,
                     });

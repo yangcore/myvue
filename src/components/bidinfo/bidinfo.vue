@@ -4,10 +4,12 @@
       <el-col :span='3'>
         投标时间：
       </el-col>
-      <el-col :span='9'>
+      <el-col :span='10'>
         <el-date-picker v-model="value3"
+                        :editable=false
                         type="datetimerange"
-                        placeholder="选择时间范围">
+                        placeholder="请选择投标时间范围"
+                        format="yyyy-MM-dd HH:mm">
         </el-date-picker>
       </el-col>
       <el-col :span='3'>
